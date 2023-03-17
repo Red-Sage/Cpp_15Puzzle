@@ -5,10 +5,10 @@ C++ 15 Puzzle  Implementation
 
 ```mermaid
 flowchart TD
-    main[Main Loop] -> user[User Input];
-    user -> update[Update State];
-    update -> render[Render];
-    render -> user;
+    main[Main Loop] -> user[User Input]
+    user -> update[Update State]
+    update -> render[Render]
+    render -> user
 ``` 
 
 # The Game Board
