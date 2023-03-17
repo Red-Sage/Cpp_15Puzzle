@@ -22,7 +22,10 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
+# gtest stuff
+#------------------------------------------------------------------------------
 add_executable(board_test ./test/board_test.cc)
 target_link_libraries(board_test GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(board_test)
+#------------------------------------------------------------------------------

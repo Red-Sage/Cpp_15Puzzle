@@ -1,26 +1,33 @@
 #include <iostream>
+#include <string>
+#include <ncurses.h>
 #include "Puzzle.h"
 #include "Board.h"
 #include "Board.cpp"
 
+void gameLoop()
+{
+
+}
 int main()
 {
-    std::cout << "Hello World" << std::endl;
-    Board board{4};
-    board.print();
-    for(int i=0; i<=5; i++)
+
+    // Initalize
+    clrscr();
+    int user_in;
+    Board game_board();
+
+    while(true)
     {
+        // User Input
+        user_in = _getch();
         
+        _putch(user_in);
+
+        // Update State
+
     }
-    board.print();
-    board.move_left();
-    board.print();
-    board.move_left();
-    board.print();
-    board.move_left();
-    board.print();
-    board.move_left();
-    board.print();
+
     
 
 
