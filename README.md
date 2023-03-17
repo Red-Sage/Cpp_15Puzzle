@@ -4,11 +4,11 @@ C++ 15 Puzzle  Implementation
 # Game Loop
 
 ```mermaid
-flowchart TD
-    main[Main Loop] -> user[User Input]
-    user -> update[Update State]
-    update -> render[Render]
-    render -> user
+flowchart TD;
+    main[Main Loop] --> user[User Input];
+    user --> update[Update State];
+    update --> render[Render];
+    render --> user;
 ``` 
 
 # The Game Board
