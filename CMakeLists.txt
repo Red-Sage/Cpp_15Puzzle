@@ -16,7 +16,17 @@ FetchContent_MakeAvailable(googletest)
 include(CTest)
 enable_testing()
 
+# Curses 
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIR})
+
+# Sharred
+ADD_LIBRARY(Screen Screen.cpp)
+ADD_LIBRARY(Board Board.cpp)
+
 add_executable(Cpp_15Puzzle main.cpp)
+target_link_libraries(Cpp_15Puzzle ${CURSES_LIBRARIES} Screen Board)
+
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

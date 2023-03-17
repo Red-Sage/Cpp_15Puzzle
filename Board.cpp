@@ -95,7 +95,7 @@ void Board::swap_tiles(size_t blank_idx, size_t idx)
     board_[blank_idx] = board_[blank_idx] - board_[idx]; 
 }
 
-size_t Board::loc_to_idx(size_t row, size_t col)
+size_t Board::loc_to_idx(size_t row, size_t col) const
 {
     return row*size_+col;
 }
@@ -133,13 +133,13 @@ void Board::print()
     std::cout << std::endl;
 }
 
-int Board::get_value(size_t row, size_t col)
+int Board::get_value(size_t row, size_t col) const
 {
     size_t idx = loc_to_idx(row, col);
     return board_[idx];
 }
 
-size_t Board::get_size()
+size_t Board::get_size() const
 {
     return size_;
 }
@@ -163,6 +163,11 @@ bool isSquare(std::vector<int> p)
         return(sr*sr == size);
     }
     return false;
+}
+
+int Board::get_blank() const
+{
+    return blank_;
 }
 
 bool Board::is_valid(std::vector<int> p)

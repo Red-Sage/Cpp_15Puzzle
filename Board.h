@@ -27,17 +27,18 @@ public:
     void move_down();
     void move_left();
     void print();
-    int get_value(size_t row, size_t col);
+    int get_value(size_t row, size_t col) const;
     size_t get_tile_idx(int tile);
     size_t get_num_tiles();
-    size_t get_size();
+    size_t get_size() const;
+    int get_blank() const;
     static bool is_valid(std::vector<int> permutation);
 
 private:
     size_t size_;
     int blank_;
     std::vector<int> board_;
-    size_t loc_to_idx(size_t row, size_t col);
+    size_t loc_to_idx(size_t row, size_t col) const;
     void swap_tiles(size_t blank_idx, size_t idx);
     void randomize();
     
