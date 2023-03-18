@@ -182,6 +182,11 @@ int Board::get_score() const
     return score_;
 }
 
+bool Board::is_complete() const
+{
+    return is_complete_;
+}
+
 int Board::calc_points()
 {
     int points = 0;

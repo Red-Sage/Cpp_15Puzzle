@@ -1,27 +1,24 @@
 #include <iostream>
 #include <string>
-#include <ncurses.h>
 #include <memory>
 #include "Puzzle.h"
 #include "Board.h"
 #include "Screen.h"
-//#include "Screen.cpp"
 
 
 enum class Direction{UP=259, RIGHT=261, DOWN=258, LEFT=260, QUIT=113};
 
-int main()
-{
 
+bool play()
+{
     // Initalize
-    Board game_board(4);
-    Screen screen;
-    screen.render(game_board);
+    Board game_board(5);
+    Screen::init_screen();
+    Screen::render(game_board);
     int user_in;
     Direction test_dir{259};
-    int i = 0;
     bool quit = false;
-    while(!quit)
+    while(!quit && !game_board.is_complete())
     {
         // User Input
         user_in = getch();
@@ -45,15 +42,39 @@ int main()
             case Direction::QUIT:
                 quit = true;
                 break;
-
-
         }
         
         //Render
-        screen.render(game_board);
-        i++;
-        
+        Screen::render(game_board);
 
+        if(game_board.is_complete())
+        {
+            Screen::render_game_complete(game_board);
+            user_in = getch();
+            if(user_in == 121)
+            {
+                endwin();
+                return false;
+            }
+            else
+            {
+                endwin();
+                return true;
+            }
+        }
+    }
+
+    endwin();
+    return quit;
+}
+
+int main()
+{
+    // Main game loop. Plays the game as long as the user has not quit.
+    bool usr_quit = false;
+    while(!usr_quit)
+    {
+        usr_quit = play();
     }
 
     return 0;    

@@ -2,16 +2,13 @@
 #define REDSAGES_15PUZZLE_SCREEN_H_
 
 #include <ncurses.h>
-#include <vector>
 #include "Board.h"
 
-class Screen
+namespace Screen
 {
-public:
-    Screen();
-    ~Screen();
-    void render(const Board &Board);
+    void init_screen();
+    void render(const Board &board);
+    void render_game_complete(const Board &Board);
+}
 
-};
-
-#endif //REDSAGES_15PUZZLE_SCREEN_H_
+#endif

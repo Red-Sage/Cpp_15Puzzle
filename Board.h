@@ -33,7 +33,7 @@ public:
     size_t get_size() const;
     int get_blank() const;
     int get_score() const;
-    bool is_complete();
+    bool is_complete() const;
     int calc_points();
     static bool is_valid(std::vector<int> permutation);
     
@@ -47,7 +47,7 @@ private:
     void randomize();
     int moves_ = 0;
     int score_ = 0;
-    bool is_complete_;
+    bool is_complete_ = false;
     
 
 };
