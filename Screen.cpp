@@ -11,6 +11,8 @@ Screen::Screen()
     printw("Cpp 15 Puzzle:");
     move(2,1);
     printw("Use the arrow keys to move or q to quit.");
+    move(3,1);
+    printw("Score:");
     refresh();
 }
 
@@ -25,7 +27,7 @@ void Screen::render(const Board &board)
     int value;
     for(size_t i=0; i < board.get_size(); i++)
     {
-        move(i+3, 3);
+        move(i+4, 3);
         for(size_t j = 0; j< board.get_size(); j++)
         {
             value = board.get_value(i, j);
@@ -40,6 +42,9 @@ void Screen::render(const Board &board)
         }
         
     }
+
+    move(3, 8);
+    printw("%4d", board.get_score());
     refresh();
     
 }

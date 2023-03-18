@@ -55,6 +55,7 @@ void Board::move_up()
         swap_tiles(blank_idx, blank_idx-size_);
     }
     
+    score_ = calc_points() - ++moves_;
 }
 
 void Board::move_right()
@@ -65,6 +66,8 @@ void Board::move_right()
     {
         swap_tiles(blank_idx, blank_idx+1);
     }
+
+    score_ = calc_points() - ++moves_;
 }
 
 void Board::move_down()
@@ -75,6 +78,8 @@ void Board::move_down()
     {
         swap_tiles(blank_idx, blank_idx+size_);
     }
+
+    score_ = calc_points() - ++moves_;
 }
 
 void Board::move_left()
@@ -85,6 +90,8 @@ void Board::move_left()
     {
         swap_tiles(blank_idx, blank_idx-1);
     }
+
+    score_ = calc_points() - ++moves_;
 }
 
 void Board::swap_tiles(size_t blank_idx, size_t idx)
@@ -170,6 +177,27 @@ int Board::get_blank() const
     return blank_;
 }
 
+int Board::get_score() const
+{
+    return score_;
+}
+
+int Board::calc_points()
+{
+    int points = 0;
+    for(size_t i=0; i<board_.size(); i++)
+    {
+        if(board_[i] == i+1)
+        {
+             points = points+10;
+             if(i == board_.size() - 1) {is_complete_ = true;};
+        }
+        else break;
+    }
+
+    return points;
+}
+
 bool Board::is_valid(std::vector<int> p)
 {
     // This static function validates that the permutation (p) meets the requirements
@@ -218,6 +246,8 @@ bool Board::is_valid(std::vector<int> p)
 
     return true;
 }
+
+
 
 
 

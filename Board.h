@@ -32,7 +32,11 @@ public:
     size_t get_num_tiles();
     size_t get_size() const;
     int get_blank() const;
+    int get_score() const;
+    bool is_complete();
+    int calc_points();
     static bool is_valid(std::vector<int> permutation);
+    
 
 private:
     size_t size_;
@@ -41,6 +45,9 @@ private:
     size_t loc_to_idx(size_t row, size_t col) const;
     void swap_tiles(size_t blank_idx, size_t idx);
     void randomize();
+    int moves_ = 0;
+    int score_ = 0;
+    bool is_complete_;
     
 
 };
