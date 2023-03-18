@@ -12,7 +12,9 @@ enum class Direction{UP=259, RIGHT=261, DOWN=258, LEFT=260, QUIT=113};
 bool play()
 {
     // Initalize
-    Board game_board(5);
+    // TODO: Allow the user to select the dimensions of the board up to a 
+    //       resonable number.
+    Board game_board(4);
     Screen::init_screen();
     Screen::render(game_board);
     int user_in;

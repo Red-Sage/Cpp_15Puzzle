@@ -3,7 +3,9 @@
 
 Board::Board(size_t size_in) : size_{size_in}
 {
-    // Game boards must be square
+    // Constructs a game boar of a give size.
+    // Game boards must be square and of reasonable size
+    if(size_ > 10){ throw std::invalid_argument("Board size too large."); }
     
     for(int i=1; i <= size_*size_; ++i)
     {
@@ -12,12 +14,15 @@ Board::Board(size_t size_in) : size_{size_in}
     //Set the blank tile
     blank_ = board_.back();   
 
+
     bool valid = false;
-    while(!valid)
+    int loop_count = 0; // to avoid an infinite loop
+    while(!valid && loop_count < 10)
     {
         randomize();
         valid = Board::is_valid(board_);
-    }    
+        loop_count++;
+    }
 }
 
 Board::Board( std::vector<int> board_init )
@@ -41,6 +46,7 @@ Board::Board( std::vector<int> board_init )
 }
 void Board::randomize()
 {
+    // Randomizes the member variable board_
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(board_.begin(), board_.end(), g);
@@ -48,6 +54,7 @@ void Board::randomize()
 
 void Board::move_up()
 {
+    // Moves the blank up and increments the score
     size_t blank_idx = get_tile_idx(blank_);
 
     if(blank_idx > size_-1)
@@ -60,6 +67,7 @@ void Board::move_up()
 
 void Board::move_right()
 {
+    // Moves the blank space right and incriments the score
     size_t blank_idx = get_tile_idx(blank_);
 
     if(blank_idx%size_ < (size_- 1 ))
@@ -72,6 +80,7 @@ void Board::move_right()
 
 void Board::move_down()
 {
+    // Moves the blank space down and increments the score
     size_t blank_idx = get_tile_idx(blank_);
 
     if(blank_idx+size_ < board_.size())
@@ -84,6 +93,7 @@ void Board::move_down()
 
 void Board::move_left()
 {
+    // Moves the blank space left and increments the score
     size_t blank_idx = get_tile_idx(blank_);
 
     if(blank_idx%size_ > 0)
@@ -122,6 +132,7 @@ size_t Board::get_tile_idx(int tile)
 
 void Board::print()
 {
+    // Utility function to print the board
     for(size_t i=0; i<size_*size_; i++)
     {
         if(i%size_==0 && i!=0) std::cout << std::endl;
@@ -142,6 +153,7 @@ void Board::print()
 
 int Board::get_value(size_t row, size_t col) const
 {
+    // Gets the value of the tile at the given row and col
     size_t idx = loc_to_idx(row, col);
     return board_[idx];
 }
@@ -163,6 +175,7 @@ bool contains_all(std::vector<int> p)
 
 bool isSquare(std::vector<int> p)
 {
+    // Helper function to determin if p is a perfect square
     auto size = p.size();
     if(size >= 0)
     {
@@ -189,6 +202,8 @@ bool Board::is_complete() const
 
 int Board::calc_points()
 {
+    // Calculates the points of the current state. Each tile that is found in 
+    // the correct position is given 10 points.
     int points = 0;
     for(size_t i=0; i<board_.size(); i++)
     {
@@ -211,14 +226,14 @@ bool Board::is_valid(std::vector<int> p)
     
     
     //check some simple conditions that must be true for the board to be valid
-    if(p.size() < 4){ return false; }
+    if(p.size() < 4){ return false; } // the board must be at least 2x2
     
-    if(!isSquare(p)){ return false; };
+    if(!isSquare(p)){ return false; }; // only square boards are allowed
 
     if(!contains_all(p)){ return false; }; // This will also catch cases where the board is not squre but is not explicit
 
     // Only some boards are solvable. This has to do with even and odd permutations.
-    // Check here for more info: 
+    // Check here for more info: https://www.youtube.com/watch?v=YI1WqYKHi78
     
     // Calculate the number of moves to place the blank where it appears of board.
     // We assume that irrespective of number of tiles and shape of board, the
